@@ -1,6 +1,8 @@
 package com.example.demo.service.ex;
 
-public class ServiceException extends RuntimeException {
+import com.example.demo.util.JsonResult;
+
+abstract public class ServiceException extends RuntimeException {
     public ServiceException() {
         super();
     }
@@ -20,4 +22,5 @@ public class ServiceException extends RuntimeException {
     protected ServiceException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
+    public  abstract void setJsonRes(JsonResult<Void>jsonResult);
 }

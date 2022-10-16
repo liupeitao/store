@@ -1,5 +1,7 @@
 package com.example.demo.service.ex;
 
+import com.example.demo.util.JsonResult;
+
 public class UsernameDuplicatedException extends ServiceException{
     public UsernameDuplicatedException() {
         super();
@@ -19,5 +21,11 @@ public class UsernameDuplicatedException extends ServiceException{
 
     protected UsernameDuplicatedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
+    }
+
+    @Override
+    public void setJsonRes(JsonResult<Void> jsonResult) {
+        jsonResult.setState(4000);
+        jsonResult.setMessage("该用户名已经被占用异常");
     }
 }

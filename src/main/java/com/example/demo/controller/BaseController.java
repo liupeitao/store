@@ -13,13 +13,8 @@ public class BaseController {
     @ExceptionHandler(ServiceException.class)
     public JsonResult<Void> handleException(Throwable e){
         JsonResult jsonResult = new JsonResult<>(e);
-        if(e instanceof UsernameDuplicatedException){
-            jsonResult.setState(4000);
-            jsonResult.setMessage(e.getMessage());
-        } else if (e instanceof InsertException) {
-           jsonResult.setState(5000);
-           jsonResult.setMessage(e.getMessage());
-        }
+        ServiceException serviceException = (ServiceException)e;
+        serviceException.setJsonRes(jsonResult);
         return jsonResult;
     }
 }

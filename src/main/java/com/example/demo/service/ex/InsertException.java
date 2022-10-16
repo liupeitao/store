@@ -1,5 +1,7 @@
 package com.example.demo.service.ex;
 
+import com.example.demo.util.JsonResult;
+
 public class InsertException extends ServiceException {
     public InsertException() {
         super();
@@ -19,5 +21,11 @@ public class InsertException extends ServiceException {
 
     protected InsertException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
+    }
+
+    @Override
+    public void setJsonRes(JsonResult<Void> jsonResult) {
+        jsonResult.setMessage("插入未知异常");
+        jsonResult.setState(5000);
     }
 }
