@@ -18,8 +18,8 @@
         <result column="is_delete" property="isDelete" ></result>
         <result column="create_user" property="createUser"></result>
         <result column="create_time" property="createTime"></result>
-        <result column="modified_user" property="modefiedUser"></result>
-        <result column="modified_time" property="modefiedTime"></result>
+        <result column="modified_user" property="modifiedUser"></result>
+        <result column="modified_time" property="modifiedTime"></result>
     </resultMap>
 
     <select id="findByName" resultMap="UserEntityMap" >
