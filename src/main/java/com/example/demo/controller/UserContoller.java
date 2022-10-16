@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
+
 @RestController
 @RequestMapping("users")
 public class UserContoller extends BaseController {
@@ -24,8 +26,15 @@ public class UserContoller extends BaseController {
        return new JsonResult<>(200);
     }
     @RequestMapping("login")
-    public JsonResult<User> log(String username, String password){
-        User u = userService.login(username, password);
-        return  new JsonResult<User>(OK, u);
+    public JsonResult<User> login(String username,
+                                String password,
+                                HttpSession httpSession){
+        User user = userService.login(username, password);
+        httpSession.setAttribute("uid", user.getUid());
+        httpSession.setAttribute("username", user.getUsername());
+
+        System.out.println(getUidFromSession(httpSession));
+        System.out.println(getUserNameFromSession(httpSession));
+        return  new JsonResult<User>(OK, user);
     }
 }
