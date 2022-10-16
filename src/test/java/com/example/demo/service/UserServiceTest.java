@@ -39,4 +39,9 @@ public class UserServiceTest {
      * 3. 参数列表不能指定任何类型
      * 4. 方法必须是public修饰。
      */
+    @Test
+    public void login(){
+      User user =  userService.login("Liupeitao1","123");
+      System.out.println(user);
+    }
 }

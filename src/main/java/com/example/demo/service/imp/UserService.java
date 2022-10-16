@@ -4,6 +4,8 @@ import com.example.demo.entity.User;
 import com.example.demo.mappers.UserMapper;
 import com.example.demo.service.IUserService;
 import com.example.demo.service.ex.InsertException;
+import com.example.demo.service.ex.PassWordNotMatchException;
+import com.example.demo.service.ex.UserNotFoundException;
 import com.example.demo.service.ex.UsernameDuplicatedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,10 +43,34 @@ public class UserService implements IUserService {
         }
         return rows;
     }
+    @Override
+    public User login(String username, String password) {
+        User userIndb =  userMapper.findByName(username);
+        if(userIndb == null){
+            throw  new UserNotFoundException("用户数据不正确");
+        }
+        if(userIndb.getIsDelete() == 1){
+            throw  new UserNotFoundException("用户已经注销了");
+        }
+        String dbPasswd = userIndb.getPassword();
+        String salt = userIndb.getSalt();
+        String passwd = getMD5Passwd(password, salt);
+        if(!passwd.equals(dbPasswd)){
+            throw new PassWordNotMatchException("密码不匹配");
+        }
+        User user = new User();
+        user.setUid(userIndb.getUid());
+        user.setUsername(userIndb.getUsername());
+        user.setAvatar(userIndb.getAvatar());
+        return user;
+    }
+
     private String getMD5Passwd(String passwd, String salt){
         for(int i = 0; i < 3;i++){
             passwd = DigestUtils.md5DigestAsHex((salt+passwd+salt).getBytes()).toUpperCase();
         }
         return  passwd;
     }
+
+
 }

@@ -15,10 +15,10 @@ public class BaseController {
         JsonResult jsonResult = new JsonResult<>(e);
         if(e instanceof UsernameDuplicatedException){
             jsonResult.setState(4000);
-            jsonResult.setMessage("改用户名已经被注册");
+            jsonResult.setMessage(e.getMessage());
         } else if (e instanceof InsertException) {
            jsonResult.setState(5000);
-           jsonResult.setMessage("注册时产生的未知异常");
+           jsonResult.setMessage(e.getMessage());
         }
         return jsonResult;
     }
