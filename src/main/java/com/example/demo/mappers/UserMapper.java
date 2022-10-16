@@ -1,8 +1,10 @@
 package com.example.demo.mappers;
 
 import com.example.demo.entity.User;
+import org.springframework.stereotype.Service;
 
 //用户模块的持久层模块
+
 public interface UserMapper {
     /**
      * 插入用户的数据。
