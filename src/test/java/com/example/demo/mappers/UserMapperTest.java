@@ -2,11 +2,14 @@ package com.example.demo.mappers;
 
 import com.example.demo.entity.User;
 import com.example.demo.mappers.UserMapper;
+import com.example.demo.service.IUserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Date;
 
 @SpringBootTest
 /**
@@ -16,7 +19,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class UserMapperTest {
     @Autowired
     private UserMapper userMapper;
-
+    @Autowired
+    private IUserService userService;
     @Test
     public  void insert(){
         User u = new User();
@@ -37,5 +41,22 @@ public class UserMapperTest {
         String name = "liupeitao";
         User u = userMapper.findByName(name);
         System.out.println(u.toString());
+    }
+
+    @Test
+    public  void findByUid(){
+        User user =  userMapper.findByUid(36);
+        System.out.println(user);
+    }
+    @Test
+    public  void updatePasswordByUid(){
+        Integer  i =  userMapper.updatePasswordByUid(40,"liupeitao","管理员",new Date());
+        System.out.println(i);
+    }
+
+    @Test
+
+    public void changePassword() {
+        userService.changePassword(40, "liuh","liupeitao");
     }
 }
