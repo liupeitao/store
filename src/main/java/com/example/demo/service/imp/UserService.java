@@ -94,23 +94,25 @@ public class UserService implements IUserService {
         if(user == null || user.getIsDelete() == 1){
             throw  new UserNotFoundException("更新信息失败， 用户不存有");
         }
-        // 减少对象传递开销
-//        res.setUserame(user.getUsername());
-//        res.setPhone(user.getPhone());
-//        res.setEmail(user.getEmail());
-//        res.setGender(user.getGender());
+        // 减少对象传递开销 ，传给前端修改信息的页面，有写东西并不需要。
+        User res = new User();
+        res.setUsername(user.getUsername());
+        res.setPhone(user.getPhone());
+        res.setEmail(user.getEmail());
+        res.setGender(user.getGender());
         return user;
     }
 
     /**
      *
      * @param uid
-     * @param username
+     * @param username  记录谁修改了当前用户信息 一般是自己， 也可能是管理员
      * @param user  用户对象的数据
      */
     @Override
     public void changeInfo(Integer uid, String username, User user) {
         userMapper.findByUid(uid);
+        user.setUid(uid);
         user.setModifiedUser(username);
         user.setModifiedTime(new Date());
         Integer rows =  userMapper.updateInfoByUid(user);
