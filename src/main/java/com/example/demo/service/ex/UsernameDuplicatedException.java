@@ -26,6 +26,6 @@ public class UsernameDuplicatedException extends ServiceException{
     @Override
     public void setJsonRes(JsonResult<Void> jsonResult) {
         jsonResult.setState(4000);
-        jsonResult.setMessage("该用户名已经被占用异常");
+        jsonResult.setMessage(this.getMessage());
     }
 }

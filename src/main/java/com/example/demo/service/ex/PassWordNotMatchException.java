@@ -26,6 +26,6 @@ public class PassWordNotMatchException extends ServiceException{
     @Override
     public void setJsonRes(JsonResult<Void> jsonResult) {
         jsonResult.setState(5002);
-        jsonResult.setMessage("用户名密码不匹配异常");
+        jsonResult.setMessage(this.getMessage());
     }
 }

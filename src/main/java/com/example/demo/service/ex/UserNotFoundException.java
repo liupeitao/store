@@ -26,6 +26,6 @@ public class UserNotFoundException extends ServiceException{
     @Override
     public void setJsonRes(JsonResult<Void> jsonResult) {
         jsonResult.setState(5001);
-        jsonResult.setMessage("用户未找到异常");
+        jsonResult.setMessage(this.getMessage());
     }
 }

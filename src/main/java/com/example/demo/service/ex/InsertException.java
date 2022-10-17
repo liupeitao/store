@@ -25,7 +25,7 @@ public class InsertException extends ServiceException {
 
     @Override
     public void setJsonRes(JsonResult<Void> jsonResult) {
-        jsonResult.setMessage("插入未知异常");
+        jsonResult.setMessage(this.getMessage());
         jsonResult.setState(5000);
     }
 }

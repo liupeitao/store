@@ -1,7 +1,9 @@
 package com.example.demo.mappers;
 
 import com.example.demo.entity.User;
-import org.springframework.stereotype.Service;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.Date;
 
 //用户模块的持久层模块
 
@@ -19,4 +21,20 @@ public interface UserMapper {
      * @return
      */
     User findByName(String userName);
+
+    User findByUid(Integer uid);
+
+    /**
+     * 多个参数必须要加@param 单个参数的可以不用加，这是mybatis的规则。
+     *
+     * @param uid
+     * @param password
+     * @param modifiedUser
+     * @param modifiedTime
+     * @return
+     */
+    Integer updatePasswordByUid(@Param("uid") Integer uid,
+                                @Param("password") String password,
+                                @Param("modifiedUser") String modifiedUser,
+                                @Param("modifiedTime") Date modifiedTime);
 }

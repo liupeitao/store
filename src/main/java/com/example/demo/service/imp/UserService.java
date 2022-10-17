@@ -3,10 +3,7 @@ package com.example.demo.service.imp;
 import com.example.demo.entity.User;
 import com.example.demo.mappers.UserMapper;
 import com.example.demo.service.IUserService;
-import com.example.demo.service.ex.InsertException;
-import com.example.demo.service.ex.PassWordNotMatchException;
-import com.example.demo.service.ex.UserNotFoundException;
-import com.example.demo.service.ex.UsernameDuplicatedException;
+import com.example.demo.service.ex.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -72,5 +69,22 @@ public class UserService implements IUserService {
         return  passwd;
     }
 
-
+    @Override
+    public void changePassword(Integer uid, String oldPassword, String newPassword) {
+        User user =  userMapper.findByUid(uid);
+        if(user == null || user.getIsDelete()==1){
+            throw  new UpdateException("用户更新失败,可能是因为用户数据不存有");
+        }
+       String oldMD5Password = getMD5Passwd(oldPassword, user.getSalt());
+        if(!user.getPassword().equals(oldMD5Password)){
+            System.out.println(oldMD5Password);
+            System.out.println(user.getPassword());
+            throw new PassWordNotMatchException("更新失败，密码错误");
+        }
+        String newMD5Password = getMD5Passwd(newPassword, user.getSalt());
+        Integer rows = userMapper.updatePasswordByUid(uid, newMD5Password, user.getUsername(), new Date());
+        if (rows != 1){
+            throw new UpdateException("更新失败，未知异常");
+        }
+    }
 }
