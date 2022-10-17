@@ -87,4 +87,35 @@ public class UserService implements IUserService {
             throw new UpdateException("更新失败，未知异常");
         }
     }
+
+    @Override
+    public User getByUid(Integer uid) {
+        User user = userMapper.findByUid(uid);
+        if(user == null || user.getIsDelete() == 1){
+            throw  new UserNotFoundException("更新信息失败， 用户不存有");
+        }
+        // 减少对象传递开销
+//        res.setUserame(user.getUsername());
+//        res.setPhone(user.getPhone());
+//        res.setEmail(user.getEmail());
+//        res.setGender(user.getGender());
+        return user;
+    }
+
+    /**
+     *
+     * @param uid
+     * @param username
+     * @param user  用户对象的数据
+     */
+    @Override
+    public void changeInfo(Integer uid, String username, User user) {
+        userMapper.findByUid(uid);
+        user.setModifiedUser(username);
+        user.setModifiedTime(new Date());
+        Integer rows =  userMapper.updateInfoByUid(user);
+        if(rows != 1){
+            throw  new UpdateException("更新信息失败,未知异常");
+        }
+    }
 }

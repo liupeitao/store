@@ -5,6 +5,7 @@ import com.example.demo.mappers.UserMapper;
 import com.example.demo.service.IUserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.SimpleTypeConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -58,5 +59,30 @@ public class UserMapperTest {
 
     public void changePassword() {
         userService.changePassword(40, "liuh","liupeitao");
+    }
+    @Test
+    public  void updateInfoByUid(){
+        User user = new User();
+        user.setUid(40);
+        user.setPhone("88888888888");
+        user.setEmail("aaaa@outlook.com");
+        user.setGender(1);
+
+        userMapper.updateInfoByUid(user);
+    }
+
+    @Test
+    public void getByUid(){
+        System.out.println(userService.getByUid(40));
+    }
+
+    @Test
+    public void changeInfo(){
+//        System.out.println(userService.changeInfo(););
+        User u = userService.getByUid(40);
+        u.setEmail("liu@outlook.com");
+        u.setPhone("13222222222222");
+        u.setGender(1);
+        userService.changeInfo(40, "tret4543", u);
     }
 }

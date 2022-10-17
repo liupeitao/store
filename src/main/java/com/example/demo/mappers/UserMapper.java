@@ -37,4 +37,6 @@ public interface UserMapper {
                                 @Param("password") String password,
                                 @Param("modifiedUser") String modifiedUser,
                                 @Param("modifiedTime") Date modifiedTime);
+
+    Integer updateInfoByUid(User user);
 }
