@@ -35,4 +35,12 @@ public interface IUserService {
      * @param user  用户对象的数据
      */
     void changeInfo(Integer uid, String username, User user);
+
+    /**
+     * 修改用户头像
+     * @param uid  更换头像的用户id
+     * @param avartar   头像文件
+     * @param username  修改用户名 可能是自己修改 也可能是管理员修改。
+     */
+    void changeAvatar(Integer uid, String avartar, String username);
 }

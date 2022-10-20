@@ -79,10 +79,15 @@ public class UserMapperTest {
     @Test
     public void changeInfo(){
 //        System.out.println(userService.changeInfo(););
+
         User u = userService.getByUid(40);
         u.setEmail("liu@outlook.com");
         u.setPhone("13222222222222");
         u.setGender(1);
         userService.changeInfo(40, "tret4543", u);
+    }
+    @Test
+    public void changeAvatar(){
+        userService.changeAvatar(40, "/upload/test.png", "liupeitao");
     }
 }

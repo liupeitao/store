@@ -120,4 +120,16 @@ public class UserService implements IUserService {
             throw  new UpdateException("更新信息失败,未知异常");
         }
     }
+
+    @Override
+    public void changeAvatar(Integer uid, String avartar, String username) {
+        User res = userMapper.findByUid(uid);
+        if(res == null || res.getIsDelete() == 1){
+            throw  new UserNotFoundException("无法修改头像， 因为用户不存在");
+        }
+        int rows =  userMapper.updateAvatarByUid(uid, avartar, username,new Date());
+        if (rows != 1){
+            throw  new UpdateException("更新用户头像失败");
+        }
+    }
 }

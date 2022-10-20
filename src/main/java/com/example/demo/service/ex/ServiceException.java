@@ -1,8 +1,9 @@
 package com.example.demo.service.ex;
 
+import com.example.demo.controller.ex.EEx;
 import com.example.demo.util.JsonResult;
 
-abstract public class ServiceException extends RuntimeException {
+abstract public class ServiceException  extends EEx {
     public ServiceException() {
         super();
     }
