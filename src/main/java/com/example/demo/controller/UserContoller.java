@@ -122,7 +122,7 @@ public class UserContoller extends BaseController {
         }
         Integer uid = getUidFromSession(httpSession);
         String username = getUserNameFromSession(httpSession);
-        String avatar = "/upload/ " + filename;
+        String avatar = "/upload/" + filename;
         userService.changeAvatar(uid, filename, username);
         // 用户头像的路径返回给前端，将来用来给页面展示。
         return new JsonResult<>(OK, avatar);
